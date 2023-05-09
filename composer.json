@@ -7,13 +7,13 @@
         }
     },
     "license": "MIT",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=7.2.5",
         "guzzlehttp/guzzle": "^7.3",
         "vlucas/phpdotenv": "^5.4.0",
         "caseyamcl/guzzle_retry_middleware": "^2.8",
-        "react/event-loop": "1.x-dev"
+        "react/event-loop": "^1.4.0"
     },
     "scripts": {        
 		"post-update-cmd": [
