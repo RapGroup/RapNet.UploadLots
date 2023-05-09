@@ -1,38 +1,41 @@
 {
-    "name": "rapnet/upload_lots",
-    "description": "RapNet Upload Lots SDK",
-    "autoload": {
-        "psr-4": {
-            "Rapnet\\RapnetUploadLots\\": "src/"
-        }
-    },
-    "license": "MIT",
-    "minimum-stability": "stable",
-    "require": {
-        "php": ">=7.2.5",
-        "guzzlehttp/guzzle": "^7.3",
-        "vlucas/phpdotenv": "^5.4.0",
-        "caseyamcl/guzzle_retry_middleware": "^2.8",
-        "react/event-loop": "^1.4.0"
-    },
-    "scripts": {
-        "post-package-install": [
-          "@build-prod"
-        ],
-        "post-install-cmd": [
-          "@build-prod"
-        ],        
-        "post-package-update": [
-          "@build-prod"
-        ],
-        "build-dev": [
-          "php -r \"copy('.env.local', '.env');\""  
-        ],
-        "build-stage": [
-          "php -r \"copy('.env.stage', '.env');\""  
-        ],
-        "build-prod": [
-          "php -r \"copy('.env.prod', '.env');\""  
-        ]
+  "name": "rapnet/upload_lots",
+  "description": "RapNet Upload Lots SDK",
+  "autoload": {
+    "psr-4": {
+      "Rapnet\\RapnetUploadLots\\": "src/"
     }
+  },
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.2.5",
+    "guzzlehttp/guzzle": "^7.3",
+    "vlucas/phpdotenv": "^5.4.0",
+    "caseyamcl/guzzle_retry_middleware": "^2.8",
+    "react/event-loop": "^1.4.0"
+  },
+  "scripts": {    
+    "post-package-install": [
+      "@build-prod"
+    ],
+    "post-package-update": [
+      "@build-prod"
+    ],
+    "post-install-cmd": [
+      "@build-prod"
+    ],
+    "post-update-cmd": [
+      "@build-prod"
+    ],    
+    "build-dev": [
+      "php -r \"copy('.env.local', '.env');\""
+    ],
+    "build-stage": [
+      "php -r \"copy('.env.stage', '.env');\""
+    ],
+    "build-prod": [
+      "php -r \"copy('.env.prod', '.env');\""
+    ]
+  }
 }
