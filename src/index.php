@@ -57,6 +57,7 @@ class Index {
     *
     * @return { access_token: string, token_type: 'Bearer' }
     *
+    *
     */
 
     public function getAuthorizationToken()
