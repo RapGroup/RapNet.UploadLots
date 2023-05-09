@@ -15,12 +15,15 @@
         "caseyamcl/guzzle_retry_middleware": "^2.8",
         "react/event-loop": "^1.4.0"
     },
-    "scripts": {        
-		"post-update-cmd": [
-            "@build-prod"
+    "scripts": {
+        "post-package-install": [
+          "@build-prod"
         ],
         "post-install-cmd": [
-            "@build-prod"
+          "@build-prod"
+        ],        
+        "post-package-update": [
+          "@build-prod"
         ],
         "build-dev": [
           "php -r \"copy('.env.local', '.env');\""  
