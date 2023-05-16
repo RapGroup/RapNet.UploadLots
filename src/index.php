@@ -47,7 +47,7 @@ class Index {
               'diamondupdateingest' => $_ENV['RAPNET_GATEWAY_BASE_URL'].'/diamondupdateingest/api/public',
               'diamondupdate' => $_ENV['RAPNET_GATEWAY_BASE_URL'].'/diamondupdate/api/public',
               'jwt' => null,
-              'scope' => 'manageListings priceListWeekly instantInventory',
+              'scope' => 'manageListings',
               'audience' => $_ENV['RAPNET_GATEWAY_AUDIENCE']
             ];
     }
