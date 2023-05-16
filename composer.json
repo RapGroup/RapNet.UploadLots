@@ -1,6 +1,6 @@
 {
   "name": "rapnet/upload_lots",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "RapNet Upload Lots SDK",
   "autoload": {
     "psr-4": {
