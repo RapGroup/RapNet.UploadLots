@@ -57,7 +57,6 @@ class Index {
     *
     * @return { access_token: string, token_type: 'Bearer' }
     *
-    *
     */
 
     public function getAuthorizationToken()
@@ -427,5 +426,103 @@ class Index {
         } catch (RequestException $e) {
             return $e->getMessage();
         }    
+    }
+
+
+    /*
+    * Change Price
+    *
+    * @param token string
+    * @param prices [
+    *    {
+    *        "stockNumber": ?string,
+    *        "rapnetLotId": ?int,
+    *        "rapNetPrice": ?decimal,
+    *        "rapNetDiscountPercent": ?decimal,
+    *        "cashPrice": ?decimal,
+    *        "cashPriceDiscountPercent": ?decimal
+    *    }
+    *  ]
+    * Need to provide at least stockNumber or rapnetLotId and one of prices (rapNetPrice, rapNetDiscountPercent, cashPrice, cashPriceDiscountPercent)
+    *
+    *
+    * @return error string or 
+    *  {
+    *    "uploadId": string
+    *  }
+    *
+    */
+
+    public function changePrice($token, $prices = [])
+    {
+        try {
+            $stack = HandlerStack::create();
+            $stack->push(GuzzleRetryMiddleware::factory([
+                'max_retry_attempts' => 2,
+                'retry_on_status' => [429, 503, 500]
+            ]));            
+
+            $client = new GuzzleClient(['verify' => false, 'handler' => $stack]);
+            $url = "{$this->config['diamondupdate']}/lots/prices";
+
+            $response = $client->request('PUT',  $url, [
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                        'authorization' => "Bearer {$token}"
+                    ],
+                    'body' => json_encode($prices)
+                ]
+            );
+            return json_decode($response->getBody());
+        } catch (RequestException $e) {
+            return $e->getMessage();
+        }    
+    }
+
+    /*
+    * Change Status
+    *
+    * @param token string
+    * @param prices [
+    *    {
+    *        "stockNumber": ?string,
+    *        "rapnetLotId": ?int,
+    *        "status": string
+    *    }
+    *  ]
+    * Need to provide status and stockNumber or rapnetLotId
+    *
+    *
+    * @return error string or 
+    *  {
+    *    "uploadId": string
+    *  }
+    *
+    */
+
+    public function changeStatus($token, $statuses = [])
+    {
+        try {
+            $stack = HandlerStack::create();
+            $stack->push(GuzzleRetryMiddleware::factory([
+                'max_retry_attempts' => 2,
+                'retry_on_status' => [429, 503, 500]
+            ]));            
+
+            $client = new GuzzleClient(['verify' => false, 'handler' => $stack]);
+            $url = "{$this->config['diamondupdate']}/lots/availability";
+
+            $response = $client->request('PUT',  $url, [
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                        'authorization' => "Bearer {$token}"
+                    ],
+                    'body' => json_encode($statuses)
+                ]
+            );
+            return json_decode($response->getBody());
+        } catch (RequestException $e) {
+            return $e->getMessage();
+        }
     }
 }
