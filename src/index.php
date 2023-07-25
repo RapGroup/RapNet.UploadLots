@@ -47,7 +47,7 @@ class Index {
               'diamondupdateingest' => $_ENV['RAPNET_GATEWAY_BASE_URL'].'/diamondupdateingest/api/public',
               'diamondupdate' => $_ENV['RAPNET_GATEWAY_BASE_URL'].'/diamondupdate/api/public',
               'jwt' => null,
-              'scope' => 'manageListings',
+              'scope' => 'manageListings priceListWeekly instantInventory',
               'audience' => $_ENV['RAPNET_GATEWAY_AUDIENCE']
             ];
     }
@@ -185,7 +185,18 @@ class Index {
             $allowed = array('csv', 'txt');
             $mime_types  = array('txt' => 'text/plain', 'csv' => 'text/csv');
 
-            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $ext;
+            $fileSize;
+            $fileName;
+            if(is_string($file)) {
+                $ext = pathinfo($file, PATHINFO_EXTENSION);
+                $fileName = basename($file);
+                $fileSize = filesize($file);
+            } else{
+                $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $fileName = $file['name'];
+                $fileSize = $file['size'];
+            }      
 
             if (!in_array($ext, $allowed)) {
                return 'Support only .csv and .txt files';
@@ -194,11 +205,11 @@ class Index {
             $headers = ['Content-Type' => 'application/json', 'authorization' => "Bearer {$token}"];
             
             $start_body = new MultipartStartRequest();
-            $start_body->fileName = $file['name'];
+            $start_body->fileName = $fileName;
             $start_body->replaceAll = $replace;
             $start_body->sendEmail = $sendEmail;
             $start_body->diamondFileFormat = $diamondFileFormat;
-            $start_body->fileSize = $file['size'];
+            $start_body->fileSize = $fileSize;
 
             $start_request = new Request('POST', $url, $headers, json_encode($start_body));
 
