@@ -474,7 +474,7 @@ class Index {
             ]));            
 
             $client = new GuzzleClient(['verify' => false, 'handler' => $stack]);
-            $url = "{$this->config['diamondupdate']}/lots/prices";
+            $url = "{$this->config['diamondupdateingest']}/lots/prices";
 
             $response = $client->request('PUT',  $url, [
                     'headers' => [
@@ -521,7 +521,7 @@ class Index {
             ]));            
 
             $client = new GuzzleClient(['verify' => false, 'handler' => $stack]);
-            $url = "{$this->config['diamondupdate']}/lots/availability";
+            $url = "{$this->config['diamondupdateingest']}/lots/availability";
 
             $response = $client->request('PUT',  $url, [
                     'headers' => [
